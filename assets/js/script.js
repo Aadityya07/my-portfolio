@@ -169,9 +169,17 @@ if (navigationLinks.length > 0 && pages.length > 0) {
           const animatedElements = pages[i].querySelectorAll('.scroll-reveal');
           animatedElements.forEach(el => el.classList.remove('in-view'));
           
-          // Reset Skill Bars
+          // Reset and Animate Skill Bars
           const skillBars = pages[i].querySelectorAll('.skill-progress-fill');
-          skillBars.forEach(bar => { bar.style.width = '0%'; });
+          skillBars.forEach(bar => { 
+            bar.style.width = '0%'; 
+            setTimeout(() => {
+              const dataTag = bar.closest('.skills-item').querySelector('data');
+              if(dataTag) {
+                bar.style.width = dataTag.getAttribute('value') + '%';
+              }
+            }, 100); 
+          });
 
           window.scrollTo(0, 0);
         } else {
@@ -209,7 +217,7 @@ if (themeBtn) {
 // ================= ADVANCED SCROLL & SKILL ANIMATIONS =================
 
 // 1. Add base class to animate elements
-const scrollItems = document.querySelectorAll('.service-item, .project-item, .timeline-item, .skill-item, .blog-post-item');
+const scrollItems = document.querySelectorAll('.service-item, .project-item, .timeline-item, .skills-item, .blog-post-item');
 scrollItems.forEach(el => {
   el.classList.add('scroll-reveal');
 });
@@ -222,7 +230,7 @@ const scrollObserver = new IntersectionObserver((entries) => {
       entry.target.classList.add('in-view');
 
       // SKILL BAR LOGIC
-      if (entry.target.classList.contains('skill-item')) {
+      if (entry.target.classList.contains('skills-item')) {
         const progressBar = entry.target.querySelector('.skill-progress-fill');
         const dataTag = entry.target.querySelector('data');
         
@@ -243,3 +251,21 @@ scrollItems.forEach(el => scrollObserver.observe(el));
 
 // 4. Force projects to show "All" on load (Fixes the blank project issue)
 filterFunc("all");
+
+// ================= AVATAR MODAL LOGIC =================
+const avatarBtn = document.querySelector("[data-avatar-btn]");
+const avatarModal = document.querySelector("[data-avatar-modal]");
+const avatarOverlay = document.querySelector("[data-avatar-overlay]");
+const avatarCloseBtn = document.querySelector("[data-avatar-close-btn]");
+
+if (avatarBtn && avatarModal && avatarOverlay && avatarCloseBtn) {
+  const toggleAvatarModal = function () {
+    avatarModal.classList.toggle("active");
+    avatarOverlay.classList.toggle("active");
+    document.body.classList.toggle("hide-theme-btn"); /* This hides/shows the theme toggle */
+  }
+
+  avatarBtn.addEventListener("click", toggleAvatarModal);
+  avatarOverlay.addEventListener("click", toggleAvatarModal);
+  avatarCloseBtn.addEventListener("click", toggleAvatarModal);
+}

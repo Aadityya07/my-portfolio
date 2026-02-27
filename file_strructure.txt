@@ -1,3 +1,10 @@
+my_portfolio\.GitHub\FUNDING.YML:
+# These are supported funding model platforms
+
+patreon: codewithsadee # Replace with a single Patreon username
+
+
+my_portfolio\ assets\ CSS\ Style.css:
 /*-----------------------------------*\
   #style.css
 \*-----------------------------------*/
@@ -2771,39 +2778,1070 @@ body.light-theme .form-btn ion-icon {
   z-index: 2;
 }
 
-/* =========================================
-   ADVANCED SCROLL ANIMATIONS (FIXED)
-   ========================================= */
 
-/* 1. Base Class for animating elements */
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), 
-              transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+my_portfolio\ assets\ images: this consider all the images used in the website.
+
+
+my_portfolio\ assets\ js\ script.js:
+'use strict';
+
+// element toggle function
+const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
+
+// sidebar variables
+const sidebar = document.querySelector("[data-sidebar]");
+const sidebarBtn = document.querySelector("[data-sidebar-btn]");
+
+// sidebar toggle functionality for mobile
+if (sidebar && sidebarBtn) {
+  sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
 }
 
-/* 2. The NEW active state (Renamed to .in-view to avoid conflicts) */
-.scroll-reveal.in-view {
-  opacity: 1;
-  transform: translateY(0);
+// ================= TESTIMONIALS MODAL =================
+const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
+const modalContainer = document.querySelector("[data-modal-container]");
+const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
+const overlay = document.querySelector("[data-overlay]");
+const modalImg = document.querySelector("[data-modal-img]");
+const modalTitle = document.querySelector("[data-modal-title]");
+const modalText = document.querySelector("[data-modal-text]");
+
+const testimonialsModalFunc = function () {
+  modalContainer.classList.toggle("active");
+  overlay.classList.toggle("active");
 }
 
-/* 3. Skill Bar Animation Fix */
-.skill-progress-fill {
-  width: 0; /* Forces it to start empty */
-  background: var(--text-gradient-yellow); /* Ensures Gold Color is always there */
-  transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: width;
+if (testimonialsItem.length > 0 && modalContainer && modalCloseBtn && overlay) {
+  for (let i = 0; i < testimonialsItem.length; i++) {
+    testimonialsItem[i].addEventListener("click", function () {
+      modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
+      modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
+      modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
+      modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
+      testimonialsModalFunc();
+    });
+  }
+  modalCloseBtn.addEventListener("click", testimonialsModalFunc);
+  overlay.addEventListener("click", testimonialsModalFunc);
 }
 
-/* 4. Avatar Pulse */
-@keyframes softPulse {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 157, 95, 0.4); }
-  70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(197, 157, 95, 0); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 157, 95, 0); }
+// ================= PROJECTS MODAL =================
+const projectItems = document.querySelectorAll("[data-project-item]");
+const projectModalContainer = document.querySelector("[data-modal-container-project]");
+const projectModalCloseBtn = document.querySelector("[data-modal-close-btn-project]");
+const projectOverlay = document.querySelector("[data-overlay-project]");
+
+const projectModalImg = document.querySelector("[data-modal-project-img]");
+const projectModalTitle = document.querySelector("[data-modal-project-title]");
+const projectModalCategory = document.querySelector("[data-modal-project-category]");
+const projectModalText = document.querySelector("[data-modal-project-text]");
+const projectModalGithub = document.querySelector("[data-modal-github-link]");
+const projectModalDeploy = document.querySelector("[data-modal-deploy-link]");
+
+const projectModalFunc = function () {
+  projectModalContainer.classList.toggle("active");
+  projectOverlay.classList.toggle("active");
 }
 
-.sidebar-info .avatar-box {
-  animation: softPulse 3s infinite ease-in-out;
+if (projectItems.length > 0 && projectModalContainer && projectModalCloseBtn && projectOverlay) {
+  for (let i = 0; i < projectItems.length; i++) {
+    projectItems[i].addEventListener("click", function (e) {
+      e.preventDefault(); // Prevent default anchor jump
+
+      // 1. Get data from the clicked item
+      const img = this.querySelector("[data-project-img]");
+      const title = this.querySelector("[data-project-title]");
+      const category = this.querySelector("[data-project-category]");
+      const desc = this.querySelector("[data-project-desc]");
+      const gitLink = this.querySelector("[data-github-link]");
+      const deployLink = this.querySelector("[data-deploy-link]");
+
+      // 2. Populate Modal
+      projectModalImg.src = img.src;
+      projectModalImg.alt = img.alt;
+      projectModalTitle.innerHTML = title.innerHTML;
+      projectModalCategory.innerHTML = category.innerHTML;
+      projectModalText.innerHTML = desc.innerHTML;
+      
+      projectModalGithub.href = gitLink.innerText;
+      projectModalDeploy.href = deployLink.innerText;
+
+      // 3. Show Modal
+      projectModalFunc();
+    });
+  }
+  projectModalCloseBtn.addEventListener("click", projectModalFunc);
+  projectOverlay.addEventListener("click", projectModalFunc);
 }
+
+
+// custom select variables
+const select = document.querySelector("[data-select]");
+const selectItems = document.querySelectorAll("[data-select-item]");
+const selectValue = document.querySelector("[data-selecct-value]");
+const filterBtn = document.querySelectorAll("[data-filter-btn]");
+
+if (select) {
+  select.addEventListener("click", function () { elementToggleFunc(this); });
+}
+
+if (selectItems.length > 0) {
+  for (let i = 0; i < selectItems.length; i++) {
+    selectItems[i].addEventListener("click", function () {
+      let selectedValue = this.innerText.toLowerCase();
+      selectValue.innerText = this.innerText;
+      elementToggleFunc(select);
+      filterFunc(selectedValue);
+    });
+  }
+}
+
+// filter variables
+const filterItems = document.querySelectorAll("[data-filter-item]");
+
+const filterFunc = function (selectedValue) {
+  for (let i = 0; i < filterItems.length; i++) {
+    if (selectedValue === "all") {
+      filterItems[i].classList.add("active");
+    } else if (selectedValue === filterItems[i].dataset.category) {
+      filterItems[i].classList.add("active");
+    } else {
+      filterItems[i].classList.remove("active");
+    }
+  }
+}
+
+if (filterBtn.length > 0) {
+  let lastClickedBtn = filterBtn[0];
+  for (let i = 0; i < filterBtn.length; i++) {
+    filterBtn[i].addEventListener("click", function () {
+      let selectedValue = this.innerText.toLowerCase();
+      selectValue.innerText = this.innerText;
+      filterFunc(selectedValue);
+      lastClickedBtn.classList.remove("active");
+      this.classList.add("active");
+      lastClickedBtn = this;
+    });
+  }
+}
+
+// contact form variables
+const form = document.querySelector("[data-form]");
+const formInputs = document.querySelectorAll("[data-form-input]");
+const formBtn = document.querySelector("[data-form-btn]");
+
+if (form && formInputs.length > 0 && formBtn) {
+  for (let i = 0; i < formInputs.length; i++) {
+    formInputs[i].addEventListener("input", function () {
+      if (form.checkValidity()) {
+        formBtn.removeAttribute("disabled");
+      } else {
+        formBtn.setAttribute("disabled", "");
+      }
+    });
+  }
+}
+
+// page navigation variables
+const navigationLinks = document.querySelectorAll("[data-nav-link]");
+const pages = document.querySelectorAll("[data-page]");
+
+if (navigationLinks.length > 0 && pages.length > 0) {
+  for (let i = 0; i < navigationLinks.length; i++) {
+    navigationLinks[i].addEventListener("click", function () {
+      const targetPage = this.innerHTML.toLowerCase();
+      for (let i = 0; i < pages.length; i++) {
+        if (targetPage === pages[i].dataset.page) {
+          pages[i].classList.add("active");
+          navigationLinks[i].classList.add("active");
+          window.scrollTo(0, 0);
+        } else {
+          pages[i].classList.remove("active");
+          navigationLinks[i].classList.remove("active");
+        }
+      }
+    });
+  }
+}
+
+// ================= THEME TOGGLE =================
+const themeBtn = document.querySelector("[data-theme-btn]");
+const themeBtnIcon = document.querySelector("[data-theme-btn] ion-icon");
+
+// Check if user previously selected a theme
+const localTheme = localStorage.getItem("theme");
+
+if (localTheme === "light") {
+  document.body.classList.add("light-theme");
+  themeBtnIcon.setAttribute("name", "sunny-outline");
+}
+
+if (themeBtn) {
+  themeBtn.addEventListener("click", function () {
+    document.body.classList.toggle("light-theme");
+
+    if (document.body.classList.contains("light-theme")) {
+      themeBtnIcon.setAttribute("name", "sunny-outline");
+      localStorage.setItem("theme", "light");
+    } else {
+      themeBtnIcon.setAttribute("name", "moon-outline");
+      localStorage.setItem("theme", "dark");
+    }
+  });
+}
+
+
+
+my_portfolio\ index.html:
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vCard - Personal Portfolio</title>
+
+  <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <main>
+
+    <aside class="sidebar" data-sidebar>
+
+      <div class="sidebar-info">
+
+        <figure class="avatar-box">
+          <img src="./assets/images/my-avatar.png" alt="Aditya Yadav" width="80">
+        </figure>
+
+        <div class="info-content">
+          <h1 class="name" title="Aditya Yadav">Aditya Yadav</h1>
+
+          <p class="title">AI & DS | Full-Stack Developer</p>
+        </div>
+
+        <button class="info_more-btn" data-sidebar-btn>
+          <span>Show Contacts</span>
+
+          <ion-icon name="chevron-down"></ion-icon>
+        </button>
+
+      </div>
+
+      <div class="sidebar-info_more">
+
+        <div class="separator"></div>
+
+        <ul class="contacts-list">
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Email</p>
+
+              <a href="mailto:aditya.yadav.07.in@gmail.com" class="contact-link">aditya.yadav.07.in@gmail.com</a>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="calendar-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Birthday</p>
+
+              <time datetime="2004-02-07">February 7, 2004</time>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Location</p>
+
+              <address>Nashik, Maharashtra, India</address>
+            </div>
+
+          </li>
+
+        </ul>
+
+        <div class="separator"></div>
+
+        <ul class="social-list">
+
+          <li class="social-item">
+            <a href="https://github.com/Aadityya07" class="social-link" target="_blank">
+              <ion-icon name="logo-github"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="https://www.linkedin.com/in/aditya1610" class="social-link" target="_blank">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="https://x.com/AdityaYadavDS" class="social-link" target="_blank">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/>
+              </svg>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="https://www.instagram.com/aadityya_06/" class="social-link" target="_blank">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </aside>
+
+
+
+
+
+    <div class="main-content">
+
+      <button class="theme-btn" data-theme-btn>
+        <ion-icon name="moon-outline"></ion-icon>
+      </button>
+
+      <nav class="navbar">
+
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <button class="navbar-link  active" data-nav-link>About</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Resume</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Projects</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Contact</button>
+          </li>
+
+        </ul>
+
+      </nav>
+
+
+<!--
+        ABOUT
+-->
+
+
+      <article class="about  active" data-page="about">
+
+        <header>
+          <h2 class="h2 article-title">About me</h2>
+        </header>
+
+        <section class="about-text">
+          <p>
+            I am an Artificial Intelligence and Data Science undergraduate passionate about building intelligent systems and scalable web applications. I specialize in Machine Learning, Deep Learning, Full-Stack Development, and Generative AI.
+          </p>
+
+          <p>
+            I enjoy solving real-world problems using data-driven approaches and transforming ideas into impactful digital products. From developing AI-powered applications to designing full-stack systems, I focus on performance, optimization, and clean architecture.
+          </p>
+
+          <p>
+            Currently, I am actively working on advanced AI systems, deep learning models, and production-ready web applications while preparing for research-oriented and high-performance engineering roles.
+          </p>
+        </section>
+
+
+        <section class="service">
+
+          <h3 class="h3 service-title">What I'm Doing</h3>
+
+          <ul class="service-list">
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <ion-icon name="hardware-chip-outline" style="color: var(--orange-yellow-crayola); font-size: 40px; margin: auto; display: block;"></ion-icon>
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">AI & ML Development</h4>
+
+                <p class="service-item-text">
+                  Designing and deploying ML/DL models using TensorFlow, Python, and data science workflows.
+                </p>
+              </div>
+
+            </li>
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <ion-icon name="desktop-outline" style="color: var(--orange-yellow-crayola); font-size: 40px; margin: auto; display: block;"></ion-icon>
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Full Stack Development</h4>
+
+                <p class="service-item-text">
+                  Building scalable applications using Flask, REST APIs, PostgreSQL, and React.
+                </p>
+              </div>
+
+            </li>
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <ion-icon name="sparkles-outline" style="color: var(--orange-yellow-crayola); font-size: 40px; margin: auto; display: block;"></ion-icon>
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Generative AI</h4>
+
+                <p class="service-item-text">
+                  Implementing RAG-based systems, vector search (FAISS), and AI-powered automation tools.
+                </p>
+              </div>
+
+            </li>
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <ion-icon name="stats-chart-outline" style="color: var(--orange-yellow-crayola); font-size: 40px; margin: auto; display: block;"></ion-icon>
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Data Science</h4>
+
+                <p class="service-item-text">
+                  Data cleaning, feature engineering, statistical modeling, and visualization for decision-making.
+                </p>
+              </div>
+
+            </li>
+
+          </ul>
+          </ul>
+
+        </section>
+
+
+      </article>
+
+
+    <!--
+        RESUME
+-->
+
+
+      <article class="resume" data-page="resume">
+
+        <header>
+          <h2 class="h2 article-title">Resume</h2>
+        </header>
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Education</h3>
+          </div>
+
+          <ol class="timeline-list">
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">
+                Bachelor of Engineering – Artificial Intelligence & Data Science
+              </h4>
+
+              <span>August 2023 — June 2027</span>
+
+              <p class="timeline-text">
+                Pune Vidhyarthi Griha's College of Engineering, Nashik, Maharashtra
+              </p>
+
+              <p class="timeline-text">
+                CGPA: 8.50
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">
+                Higher Secondary Certificate (HSC) – Science
+              </h4>
+
+              <span>November 2020 — March 2022</span>
+
+              <p class="timeline-text">
+                G.D. Sawant Arts, Commerce, Science & B.C.S College, Nashik, Maharashtra
+              </p>
+
+              <p class="timeline-text">
+                Score: 65.00%
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">
+                Secondary School Certificate (SSC)
+              </h4>
+
+              <span>June 2010 — March 2020</span>
+
+              <p class="timeline-text">
+                K.K. Wagh English School, Nashik, Maharashtra
+              </p>
+
+              <p class="timeline-text">
+                Score: 80.40%
+              </p>
+
+            </li>
+
+          </ol>
+
+        </section>
+
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="briefcase-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Experience</h3>
+          </div>
+
+          <ol class="timeline-list">
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">
+                Full Stack Developer Intern
+              </h4>
+
+              <span>Nexonica Systems Pvt. Ltd. | January 2026 – February 2026</span>
+
+              <p class="timeline-text">
+                Developed scalable backend systems using Flask and PostgreSQL.
+                Designed REST APIs and integrated AI-powered text-processing pipelines.
+                Built production-ready full-stack applications combining AI and Web Development.
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">
+                Secretary – SAIGE
+              </h4>
+
+              <span>Society of Artificial Intelligence & Generative AI | September 2025 – June 2026</span>
+
+              <p class="timeline-text">
+                Organized AI-focused workshops and technical events.
+                Led hackathon teams and guided peers in Machine Learning and Generative AI initiatives.
+              </p>
+
+            </li>
+
+          </ol>
+
+        </section>
+
+
+        <section class="skill">
+
+          <h3 class="h3 skills-title">My Skills</h3>
+
+          <ul class="skills-list content-card">
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Python</h5>
+                <data value="70">70%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 70%;"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Machine Learning</h5>
+                <data value="50">50%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 50%;"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Deep Learning</h5>
+                <data value="35">35%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 35%;"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Full Stack Development</h5>
+                <data value="80">80%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 80%;"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">SQL & Databases</h5>
+                <data value="75">75%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 75%;"></div>
+              </div>
+            </li>
+
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Generative AI</h5>
+                <data value="30">30%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 30%;"></div>
+              </div>
+            </li>
+
+          </ul>
+
+        </section>
+
+      </article>
+
+
+<!--
+        PROJECTS
+-->
+
+      <article class="portfolio" data-page="projects">
+
+        <header>
+          <h2 class="h2 article-title">Projects</h2>
+        </header>
+
+        <section class="projects">
+
+          <ul class="filter-list">
+            <li class="filter-item"><button class="active" data-filter-btn>All</button></li>
+            <li class="filter-item"><button data-filter-btn>AI & ML</button></li>
+            <li class="filter-item"><button data-filter-btn>Generative AI</button></li>
+          </ul>
+
+          <div class="filter-select-box">
+            <button class="filter-select" data-select>
+              <div class="select-value" data-selecct-value>Select category</div>
+              <div class="select-icon"><ion-icon name="chevron-down"></ion-icon></div>
+            </button>
+            <ul class="select-list">
+              <li class="select-item"><button data-select-item>All</button></li>
+              <li class="select-item"><button data-select-item>AI & ML</button></li>
+              <li class="select-item"><button data-select-item>Generative AI</button></li>
+            </ul>
+          </div>
+
+          <ul class="project-list">
+
+            <li class="project-item active" data-filter-item data-category="ai & ml">
+              <a href="#" onclick="return false;" class="project-link" data-project-item>
+                <figure class="project-img">
+                  <div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div>
+                  <img src="./assets/images/project-1.jpg" alt="Lung Cancer Detection" loading="lazy" data-project-img>
+                </figure>
+                <h3 class="project-title" data-project-title>Lung Cancer Detection System</h3>
+                <p class="project-category" data-project-category>AI & ML</p>
+
+                <div class="project-data" style="display:none;">
+                  <div data-project-desc>
+                    <p style="margin-bottom: 10px;">Developed a Deep Learning-based Lung Cancer Detection System using Transfer Learning with the Xception architecture in TensorFlow. The model was trained on medical CT scan images with proper preprocessing, normalization, and data augmentation techniques to improve generalization.</p>
+                    <p style="margin-bottom: 10px;">Implemented model evaluation using accuracy, loss metrics, and performance validation techniques. The system was deployed using Gradio to provide a user-friendly prediction interface, enabling real-time classification of lung scan images.</p>
+                    <p>Focused on optimizing model performance, reducing overfitting, and ensuring reliable medical image classification results.</p>
+                  </div>
+                  <span data-github-link>https://github.com/Aadityya07</span>
+                  <span data-deploy-link>https://github.com/Aadityya07</span>
+                </div>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="generative ai">
+              <a href="#" onclick="return false;" class="project-link" data-project-item>
+                <figure class="project-img">
+                  <div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div>
+                  <img src="./assets/images/project-2.png" alt="AI PDF Summarizer" loading="lazy" data-project-img>
+                </figure>
+                <h3 class="project-title" data-project-title>AI PDF Summarizer (RAG)</h3>
+                <p class="project-category" data-project-category>Generative AI</p>
+
+                <div class="project-data" style="display:none;">
+                  <div data-project-desc>
+                    <p style="margin-bottom: 10px;">Developed an AI-based PDF Summarization System using Retrieval-Augmented Generation (RAG) architecture. Implemented document parsing, text cleaning, and intelligent chunking to process large PDF files efficiently.</p>
+                    <p style="margin-bottom: 10px;">Used FAISS (Facebook AI Similarity Search) for vector embedding storage and semantic similarity search, enabling accurate context retrieval. Integrated the retrieval pipeline with a generative model to produce meaningful, context-aware summaries.</p>
+                    <p>Built the backend using Flask and structured the system with scalable API design.</p>
+                  </div>
+                  <span data-github-link>https://github.com/Aadityya07</span>
+                  <span data-deploy-link>https://github.com/Aadityya07</span>
+                </div>
+              </a>
+            </li>
+
+          </ul>
+
+        </section>
+
+        <div class="modal-container" data-modal-container-project>
+          <div class="overlay" data-overlay-project></div>
+
+          <section class="testimonials-modal">
+            <button class="modal-close-btn" data-modal-close-btn-project>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+
+            <div class="modal-img-wrapper">
+              <figure class="modal-avatar-box">
+                <img src="./assets/images/project-1.jpg" alt="Project Image" width="80" data-modal-project-img>
+              </figure>
+              <img src="./assets/images/icon-quote.svg" alt="quote icon">
+            </div>
+
+            <div class="modal-content">
+              <h4 class="h3 modal-title" data-modal-project-title>Project Title</h4>
+              <time datetime="2023-01-01" data-modal-project-category>Category</time>
+
+              <div data-modal-project-text style="color: #d6d6d6; font-size: 15px; line-height: 1.6; margin-top: 10px;">
+                <p>Project Description...</p>
+              </div>
+
+              <div style="margin-top: 20px; display: flex; gap: 15px;">
+                <a href="#" target="_blank" data-modal-github-link style="color: var(--orange-yellow-crayola); font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                  <ion-icon name="logo-github"></ion-icon> GitHub
+                </a>
+                <a href="#" target="_blank" data-modal-deploy-link style="color: var(--orange-yellow-crayola); font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                  <ion-icon name="radio-outline"></ion-icon> Live
+                </a>
+              </div>
+
+            </div>
+          </section>
+        </div>
+
+      </article>
+
+
+<!--
+        BLOG
+
+
+      <article class="blog" data-page="blog">
+
+        <header>
+          <h2 class="h2 article-title">Blog</h2>
+        </header>
+
+        <section class="blog-posts">
+
+          <ul class="blog-posts-list">
+
+            <li class="blog-post-item">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-1.jpg" alt="Design conferences in 2022" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Fab 23, 2022</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Design conferences in 2022</h3>
+
+                  <p class="blog-text">
+                    Veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-2.jpg" alt="Best fonts every designer" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Fab 23, 2022</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Best fonts every designer</h3>
+
+                  <p class="blog-text">
+                    Sed ut perspiciatis, nam libero tempore, cum soluta nobis est eligendi.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-3.jpg" alt="Design digest #80" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Fab 23, 2022</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Design digest #80</h3>
+
+                  <p class="blog-text">
+                    Excepteur sint occaecat cupidatat no proident, quis nostrum exercitationem ullam corporis suscipit.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-4.jpg" alt="UI interactions of the week" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Fab 23, 2022</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">UI interactions of the week</h3>
+
+                  <p class="blog-text">
+                    Enim ad minim veniam, consectetur adipiscing elit, quis nostrud exercitation ullamco laboris nisi.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-5.jpg" alt="The forgotten art of spacing" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Fab 23, 2022</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">The forgotten art of spacing</h3>
+
+                  <p class="blog-text">
+                    Maxime placeat, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-6.jpg" alt="Design digest #79" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Fab 23, 2022</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Design digest #79</h3>
+
+                  <p class="blog-text">
+                    Optio cumque nihil impedit uo minus quod maxime placeat, velit esse cillum.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+          </ul>
+
+        </section>
+
+      </article>
+
+    -->
+
+
+
+    <!--
+        CONTACTS
+-->
+
+      <article class="contact" data-page="contact">
+
+        <header>
+          <h2 class="h2 article-title">Contact</h2>
+        </header>
+
+        <section class="mapbox" data-mapbox>
+          <figure>
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119981.26415038317!2d73.73343997424613!3d19.99110531846569!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddd290b09914b3%3A0xcb07845d9d28215c!2sNashik%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1707845000000!5m2!1sen!2sin" 
+              width="400" height="300" loading="lazy">
+            </iframe>
+          </figure>
+        </section>
+
+        <section class="contact-form">
+
+          <h3 class="h3 form-title">Contact Form</h3>
+
+          <form action="https://formspree.io/f/xykdewoe" method="POST" class="form" data-form>
+
+            <div class="input-wrapper">
+              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+
+              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
+            </div>
+
+            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+
+            <button class="form-btn" type="submit" disabled data-form-btn>
+              <ion-icon name="paper-plane"></ion-icon>
+              <span>Send Message</span>
+            </button>
+
+          </form>
+
+        </section>
+
+      </article>
+
+    </div>
+
+  </main>
+
+
+  <script src="./assets/js/script.js"></script>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
+
+
+
+my_portfolio\ index.txt:
+
+
+
+my_portfolio\ README.md:
+
+
+
+
+

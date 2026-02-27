@@ -1,44 +1,127 @@
-# vCard - Personal portfolio
 
-![GitHub repo size](https://img.shields.io/github/repo-size/codewithsadee/vcard-personal-portfolio)
-![GitHub stars](https://img.shields.io/github/stars/codewithsadee/vcard-personal-portfolio?style=social)
-![GitHub forks](https://img.shields.io/github/forks/codewithsadee/vcard-personal-portfolio?style=social)
-[![Twitter Follow](https://img.shields.io/twitter/follow/codewithsadee_?style=social)](https://twitter.com/intent/follow?screen_name=codewithsadee_)
-[![YouTube Video Views](https://img.shields.io/youtube/views/SoxmIlgf2zM?style=social)](https://youtu.be/SoxmIlgf2zM)
+# 🚀 Aditya Yadav – AI & Data Science Portfolio
 
-vCard is a fully responsive personal portfolio website, responsive for all devices, built using HTML, CSS, and JavaScript.
+Welcome to my personal portfolio website repository.
 
-## Demo
+This project represents my professional journey in Artificial Intelligence, Data Science, Machine Learning, Deep Learning, Full-Stack Development, and Generative AI.
 
-![vCard Desktop Demo](./website-demo-image/desktop.png "Desktop Demo")
-![vCard Mobile Demo](./website-demo-image/mobile.png "Mobile Demo")
+---
 
-## Prerequisites
+## 🌐 Live Portfolio
 
-Before you begin, ensure you have met the following requirements:
+🔗 (Add your deployed website link here)
 
-* [Git](https://git-scm.com/downloads "Download Git") must be installed on your operating system.
+---
 
-## Installing vCard
+## 👨‍💻 About Me
 
-To install **vCard**, follow these steps:
+I am an Artificial Intelligence & Data Science undergraduate passionate about building intelligent systems and scalable web applications.
 
-Linux and macOS:
+I focus on solving real-world problems using:
+- Machine Learning
+- Deep Learning
+- Generative AI
+- Retrieval-Augmented Generation (RAG)
+- Backend & Full-Stack Development
 
-```bash
-sudo git clone https://github.com/codewithsadee/vcard-personal-portfolio.git
+This portfolio highlights my technical expertise, projects, internship experience, and leadership roles.
+
+---
+
+## 🧠 Featured Projects
+
+### 🫁 Lung Cancer Detection System
+Deep Learning-based medical image classification system built using Transfer Learning (Xception) and TensorFlow.
+
+**Key Highlights:**
+- CT scan image preprocessing & normalization  
+- Data augmentation for improved generalization  
+- Model evaluation with performance metrics  
+- Deployment using Gradio interface  
+
+---
+
+### 📄 AI PDF Summarizer (RAG-Based System)
+AI-powered document summarization system built using Retrieval-Augmented Generation architecture.
+
+**Key Highlights:**
+- Document parsing & intelligent chunking  
+- FAISS-based semantic vector search  
+- Context-aware summary generation  
+- Flask backend API integration  
+
+---
+
+## 🛠 Tech Stack
+
+### 💻 Programming Languages
+- Python
+- SQL
+- JavaScript
+
+### 🤖 AI / ML
+- TensorFlow
+- Transfer Learning
+- Generative AI
+- RAG Architecture
+- FAISS
+
+### 🌐 Web Development
+- Flask
+- REST APIs
+- PostgreSQL
+- HTML5
+- CSS3
+- JavaScript
+
+---
+
+## ✨ Portfolio Features
+
+- Premium Dark & Light Luxury Theme  
+- Fully Responsive Design  
+- Interactive Project Modal System  
+- Smooth Animations & Micro-interactions  
+- Project Filtering System  
+- Contact Form Integration (Formspree)  
+- Persistent Theme Toggle (Local Storage)  
+
+---
+
+## 📁 Project Structure
+
 ```
 
-Windows:
+my_portfolio/
+│
+├── assets/
+│   ├── css/
+│   ├── js/
+│   ├── images/
+│
+├── index.html
+├── README.md
+└── index.txt
 
-```bash
-git clone https://github.com/codewithsadee/vcard-personal-portfolio.git
 ```
 
-## Contact
+---
 
-If you want to contact me you can reach me at [Twitter](https://www.x.com/codewithsadee_).
+## 📬 Contact
 
-## License
+📧 Email: aditya.yadav.07.in@gmail.com  
+💼 LinkedIn: https://www.linkedin.com/in/aditya1610  
+💻 GitHub: https://github.com/Aadityya07  
+📍 Location: Nashik, Maharashtra, India  
 
-MIT
+---
+
+## 📌 Purpose
+
+This project is developed for professional branding, internship applications, placements, and showcasing AI & Full-Stack capabilities.
+
+---
+
+## 📄 License
+
+This portfolio is intended for personal and professional showcase purposes only.
